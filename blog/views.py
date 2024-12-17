@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm
 from django.shortcuts import redirect
+from django.http import JsonResponse
 
 
 #added
@@ -27,7 +28,14 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    if not post.audio_file:
+        post.generate_audio()
     return render(request, 'blog/post_detail.html', {'post': post})
+
+def generate_audio(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.generate_audio()
+    return JsonResponse({'audio_url': post.audio_file.url})
 
 def post_new(request):
     if request.method == "POST":

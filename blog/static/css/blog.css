@@ -48,3 +48,12 @@ h1, h2, h3, h4 {
 .blog-image-list{
     object-fit: cover;
 }
+
+.btn-primary {
+    margin: 10px 0;
+}
+
+#audio-player {
+    margin: 10px 0;
+    width: 100%;
+}
